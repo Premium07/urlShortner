@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+        font-family: Product Sans;
+      }
+    </style>
+    <script>
+      function copyToClipboard(shortId) {
+        navigator.clipboard
+          .writeText(`http:localhost:3000/url/${shortId}`)
+          .then(() => {
+            alert("Short ID copied: " + shortId);
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.error("Failed to copy: ", err);
+          });
+      }
+      function pageRefresh() {
+        window.location.reload();
+      }
+    </script>
+  </head>
+  <body class="duration-300">
+    <div class="py-3 px-10 w-full flex justify-between items-center">
+      <h1 class="text-2xl font-thin text-zinc-800">< URL Shortner / ></h1>
+      <div class="flex gap-4 items-center">
+        <div class="flex items-center gap-1 p-2 rounded-full shadow">
+          <div
+            class="text-white bg-blue-600 text-lg size-6 flex justify-center items-center rounded-full"
+          >
+            <p><%= users.email.slice(0,1).toUpperCase() %></p>
+          </div>
+          <h4 class="font-semibold"><%= users.email %></h4>
+        </div>
+        <h4 class="bg-red-600 text-white py-2 px-5 rounded-full">
+          <a href="/logout">Logout</a>
+        </h4>
+      </div>
+    </div>
+
+    <div class="w-full flex flex-col items-center justify-center p-5">
+      <form method="post" action="/url" class="p-5 flex flex-col gap-5 w-1/2">
+        <label for="" class="font-black text-2xl"
+          >Enter Your Original Link:</label
+        >
+        <div
+          class="w-full flex justify-between items-center border-2 border-zinc-800 rounded-full"
+        >
+          <input
+            type="text"
+            placeholder="https://www.example.com"
+            name="url"
+            class="px-5 py-3 rounded-full w-3/4 outline-none border-zinc-800"
+          />
+          <div class="w-1/4">
+            <button
+              type="submit"
+              class="bg-zinc-800 px-4 py-3 hover:bg-zinc-700 rounded-r-full text-slate-100 font-semibold w-full"
+            >
+              Generate Link
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <% if (locals.urls) { %>
+      <div class="shadow-2xl w-9/12 mx-auto">
+        <table class="w-full table-auto overflow-hidden">
+          <thead class="">
+            <tr>
+              <th class="py-2 border-2 text-lg">S.no.</th>
+              <th class="py-2 border-2 text-lg">Short Id</th>
+              <th class="py-2 border-2 text-lg">Redirect Link</th>
+              <th class="py-2 border-2 text-lg">Clicks</th>
+              <th class="py-2 border-2 text-lg">Actions</th>
+              <!-- Added column for actions -->
+            </tr>
+          </thead>
+          <tbody class="">
+            <% urls.forEach((url, index) => { %>
+            <tr class="border">
+              <td class="border-2 p-1 text-center"><%= index + 1 %></td>
+              <td class="border-2 p-1 text-center">
+                <a
+                  class="text-blue-500 italic font-semibold"
+                  href="http://localhost:3000/url/<%= url.shortId %>"
+                  target="_blank"
+                  ><%= url.shortId %></a
+                >
+              </td>
+              <td class="border-2 p-1 truncate text-sm">
+                <%= url.redirectURL %>
+              </td>
+              <td class="border-2 p-1 text-center">
+                <%= url.visitHistory.length %>
+              </td>
+              <td class="border-2 p-1 text-center">
+                <button
+                  onclick="copyToClipboard('<%= url.shortId %>')"
+                  class="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-500"
+                >
+                  Copy
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+      <p>No URLs found.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortner | Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+        font-family: Product Sans;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="px-10 py-5 flex flex-col items-center justify-center">
+      <h1 class="text-center text-3xl font-bold">Sign Up</h1>
+      <form
+        action="/user"
+        method="post"
+        class="w-96 mt-10 flex flex-col justify-center items-start gap-5 mx-auto shadow-md p-5 border rounded"
+      >
+        <div class="w-full flex flex-col gap-2">
+          <label for="email" class="font-semibold text-zinc-800 text-lg"
+            >Username</label
+          >
+          <input
+            type="text"
+            placeholder="username"
+            required
+            name="username"
+            class="border px-5 py-2 rounded outline-none w-full shadow-md"
+          />
+        </div>
+        <div class="w-full flex flex-col gap-2">
+          <label for="email" class="font-semibold text-zinc-800 text-lg"
+            >Email</label
+          >
+          <input
+            type="email"
+            placeholder="example@gmail.com"
+            required
+            name="email"
+            class="border px-5 py-2 rounded outline-none w-full shadow-md"
+          />
+        </div>
+        <div class="relative w-full flex flex-col gap-2">
+          <label for="password" class="font-semibold text-zinc-800 text-lg"
+            >Password</label
+          >
+          <input
+            type="password"
+            placeholder="******"
+            required
+            name="password"
+            id="password"
+            class="border px-5 py-2 rounded outline-none w-full pr-10 shadow-md"
+          />
+          <span
+            class="absolute flex items-center top-1/2 pt-2 right-2 cursor-pointer"
+          >
+            <i id="togglePassword" class="fas fa-eye-slash text-gray-500"></i>
+          </span>
+        </div>
+        <div class="w-full flex items-center justify-between">
+          <button
+            type="submit"
+            class="bg-zinc-900 text-slate-100 px-5 py-2 rounded"
+          >
+            Sign Up
+          </button>
+          <p class="text-gray-500 text-sm">
+            Already a user, click
+            <a class="text-zinc-800 font-semibold" href="/login">login</a> to
+            contine.
+          </p>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+
+      togglePassword.addEventListener("click", function (e) {
+        // toggle the type attribute
+        const type =
+          password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        // toggle the eye / eye slash icon
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+      });
+    </script>
+  </body>
+</html>
