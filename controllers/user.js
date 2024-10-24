@@ -2,7 +2,7 @@ const User = require("../models/user");
 const { v4: uuidv4 } = require("uuid");
 const { setUser } = require("../service/auth");
 
-const UserSignUp = async (req, res) => {
+const  UserSignUp = async (req, res) => {
   const { username, email, password } = req.body;
 
   await User.create({

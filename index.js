@@ -12,7 +12,7 @@ const { checkForAuthentication, restrictTo } = require("./middleware/auth");
 const connectDB = require("./database/dbconnect");
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000
 connectDB();
 
 app.set("view engine", "ejs");
