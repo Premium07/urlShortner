@@ -4,7 +4,10 @@ const { restrictTo } = require("../middleware/auth.js");
 const router = express.Router();
 
 router.get("/", restrictTo(["NORMAL"]), async (req, res) => {
-  try {
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+  try { 
     const allurls = await URL.find({ createdBy: req.user._id });
     // console.log(req.user);
     return res.render("index", { urls: allurls, users: req.user }); // Pass URLs to EJS template

@@ -17,9 +17,10 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.set("view engine", "ejs");
-app.use(helmet());
+app.set("views", path.join(__dirname, "views"));
 
-app.use(express.static(path.join(__dirname, "public"))); // Serve static assets
+app.use(helmet());
+// app.use(express.static(path.join(__dirname, "public"))); // Serve static assets
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
