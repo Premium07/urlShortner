@@ -12,10 +12,12 @@ const { checkForAuthentication, restrictTo } = require("./middleware/auth");
 const connectDB = require("./database/dbconnect");
 
 const app = express();
-const PORT = process.env.PORT || 3000
+const helmet = require("helmet");
+const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.set("view engine", "ejs");
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, "public"))); // Serve static assets
 app.use(express.json());
