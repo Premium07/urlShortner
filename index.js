@@ -3,13 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const URL = require("./models/url");
+const URL = require("./models/url.js");
 
-const urlRoute = require("./routes/url");
+const urlRoute = require("./routes/url.js");
 const staticRouter = require("./routes/staticRoutes");
-const userRoute = require("./routes/user");
-const { checkForAuthentication, restrictTo } = require("./middleware/auth");
-const connectDB = require("./database/dbconnect");
+const userRoute = require("./routes/user.js");
+const { checkForAuthentication, restrictTo } = require("./middleware/auth.js");
+const connectDB = require("./database/dbconnect.js");
 
 const app = express();
 const helmet = require("helmet");

@@ -1,6 +1,6 @@
 const express = require("express");
-const URL = require("../models/url");
-const { restrictTo } = require("../middleware/auth");
+const URL = require("../models/url.js");
+const { restrictTo } = require("../middleware/auth.js");
 const router = express.Router();
 
 router.get("/", restrictTo(["NORMAL"]), async (req, res) => {
